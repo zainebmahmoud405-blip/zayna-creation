@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Your Order — Zayna Creation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --rose: #e89ab5;
+        --rose-deep: #bd4158;
+        --rose-light: #fff0f5;
+        --rose-btn: #df8192;
+        --rose-mid: #f0c8d5;
+        --lavender: #b57edc;
+        --lavender-light: #f3eafd;
+        --text-dark: #2e2025;
+        --text-mid: #6b4f5a;
+        --text-light: #a88898;
+        --bg: #fdf6f9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        background: var(--bg);
+        font-family: 'DM Sans', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: -120px; right: -120px;
+        width: 500px; height: 500px;
+        background: radial-gradient(circle, rgba(232,154,181,0.18) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+    body::after {
+        content: '';
+        position: fixed;
+        bottom: -100px; left: -100px;
+        width: 420px; height: 420px;
+        background: radial-gradient(circle, rgba(181,126,220,0.13) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+        position: sticky; top: 0;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 18px 48px;
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(232,154,181,0.2);
+        z-index: 100;
+    }
+    .logo {
+        font-family: 'Pacifico', cursive;
+        font-size: 22px; color: var(--rose);
+        letter-spacing: 0.5px;
+        text-decoration: none;
+    }
+    .back-link {
+        display: flex; align-items: center; gap: 8px;
+        font-size: 14px; font-weight: 500;
+        color: var(--text-mid); text-decoration: none;
+        padding: 8px 18px; border-radius: 30px;
+        border: 1.5px solid var(--rose-mid);
+        transition: 0.25s;
+    }
+    .back-link:hover { background: var(--rose-light); color: var(--rose-deep); border-color: var(--rose); }
+    .back-link svg { width: 15px; height: 15px; }
+
+    .page {
+        flex: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 60px 20px 80px;
+        position: relative; z-index: 1;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 620px;
+        background: white;
+        border-radius: 32px;
+        box-shadow: 0 20px 60px rgba(232,154,181,0.18), 0 4px 16px rgba(0,0,0,0.04);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #fff0f5 0%, #fce8f3 50%, #f5eafd 100%);
+        padding: 40px 44px 36px;
+        border-bottom: 1px solid rgba(232,154,181,0.15);
+        position: relative;
+        overflow: hidden;
+    }
+    .card-header::after {
+        content: '🌸';
+        position: absolute;
+        right: 36px; top: 24px;
+        font-size: 52px; opacity: 0.18;
+        transform: rotate(15deg);
+    }
+    .header-tag {
+        font-size: 11px; font-weight: 500;
+        text-transform: uppercase; letter-spacing: 2.5px;
+        color: var(--rose); margin-bottom: 10px;
+    }
+    .card-header h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 36px; font-weight: 600;
+        color: var(--text-dark); line-height: 1.15;
+        margin-bottom: 10px;
+    }
+    .card-header p {
+        font-size: 15px; color: var(--text-mid); line-height: 1.6;
+    }
+
+    /* Login notice banner */
+    .login-notice {
+        display: none;
+        align-items: center; gap: 10px;
+        margin-top: 18px;
+        background: #fff8e1;
+        border: 1.5px solid #ffe082;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-size: 13px; color: #7a6000;
+    }
+    .login-notice a { color: var(--rose-deep); font-weight: 600; text-decoration: none; }
+    .login-notice a:hover { text-decoration: underline; }
+
+    .product-badge {
+        display: none;
+        align-items: center; gap: 10px;
+        margin-top: 18px;
+        background: white;
+        border: 1.5px solid var(--rose-mid);
+        border-radius: 14px;
+        padding: 10px 16px;
+        font-size: 13px; color: var(--text-mid);
+    }
+    .product-badge.visible { display: flex; }
+    .product-badge strong { color: var(--rose-deep); font-weight: 600; }
+    .product-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--rose); flex-shrink: 0;
+    }
+
+    .card-body { padding: 40px 44px; }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .form-grid .full { grid-column: 1 / -1; }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .field label {
+        font-size: 12px; font-weight: 500;
+        text-transform: uppercase; letter-spacing: 1.5px;
+        color: var(--text-light);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+        width: 100%;
+        padding: 13px 18px;
+        border: 1.5px solid #f0e0e8;
+        border-radius: 14px;
+        font-size: 14px;
+        font-family: 'DM Sans', sans-serif;
+        color: var(--text-dark);
+        background: #fdfafb;
+        outline: none;
+        transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        -webkit-appearance: none;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+        border-color: var(--rose);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(232,154,181,0.12);
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: #c4a8b5; }
+    .field select { color: var(--text-dark); cursor: pointer; }
+    .field select option[value=""] { color: #c4a8b5; }
+    .field textarea { resize: none; line-height: 1.6; }
+
+    .req { color: var(--rose); margin-left: 2px; }
+
+    .size-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .size-pill { position: relative; }
+    .size-pill input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .size-pill label {
+        display: flex; flex-direction: column; align-items: center;
+        padding: 10px 20px;
+        border: 1.5px solid #f0e0e8;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 13px; font-weight: 500;
+        color: var(--text-mid);
+        background: #fdfafb;
+        transition: 0.2s;
+        text-transform: none;
+        letter-spacing: 0;
+        line-height: 1.4;
+        min-width: 70px;
+        text-align: center;
+    }
+    .size-pill label span.price { font-size: 11px; color: var(--text-light); font-weight: 400; margin-top: 2px; }
+    .size-pill input:checked + label {
+        border-color: var(--rose);
+        background: var(--rose-light);
+        color: var(--rose-deep);
+        box-shadow: 0 0 0 3px rgba(232,154,181,0.15);
+    }
+    .size-pill label:hover { border-color: var(--rose-mid); background: #fff8fb; }
+
+    .pack-options { display: flex; flex-direction: column; gap: 8px; }
+    .pack-option { position: relative; }
+    .pack-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .pack-option label {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 12px 16px;
+        border: 1.5px solid #f0e0e8;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 13px; font-weight: 400;
+        color: var(--text-mid);
+        background: #fdfafb;
+        transition: 0.2s;
+        text-transform: none; letter-spacing: 0;
+    }
+    .pack-option label .pack-price { font-weight: 600; color: var(--lavender); font-size: 13px; }
+    .pack-option input:checked + label {
+        border-color: var(--lavender);
+        background: var(--lavender-light);
+        color: var(--text-dark);
+        box-shadow: 0 0 0 3px rgba(181,126,220,0.12);
+    }
+
+    .divider {
+        display: flex; align-items: center; gap: 14px;
+        margin: 4px 0;
+        color: var(--text-light); font-size: 12px;
+    }
+    .divider::before, .divider::after {
+        content: ''; flex: 1; height: 1px; background: #f0e0e8;
+    }
+
+    .submit-area { margin-top: 28px; }
+
+    .btn-submit {
+        width: 100%; padding: 16px 24px;
+        background: linear-gradient(135deg, #e89ab5, #df8192);
+        color: white; border: none; border-radius: 18px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 16px; font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        letter-spacing: 0.3px;
+        position: relative; overflow: hidden;
+    }
+    .btn-submit::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(135deg, #bd4158, #c06070);
+        opacity: 0; transition: opacity 0.3s;
+    }
+    .btn-submit:hover::before { opacity: 1; }
+    .btn-submit span { position: relative; z-index: 1; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-submit:disabled::before { opacity: 0; }
+
+    #statusMsg {
+        margin-top: 16px; padding: 14px 18px;
+        border-radius: 14px; font-size: 14px; font-weight: 500;
+        display: none; text-align: center; line-height: 1.5;
+    }
+    #statusMsg.success {
+        display: block;
+        background: #fff0f5; color: var(--rose-deep);
+        border: 1.5px solid var(--rose-mid);
+    }
+    #statusMsg.error {
+        display: block;
+        background: #fff2f2; color: #c0392b;
+        border: 1.5px solid #f5c6c6;
+    }
+
+    .trust {
+        display: flex; gap: 20px; justify-content: center;
+        padding: 20px 44px 36px;
+        border-top: 1px solid #fde8f0;
+        flex-wrap: wrap;
+    }
+    .trust-item {
+        display: flex; align-items: center; gap: 7px;
+        font-size: 12px; color: var(--text-light); font-weight: 400;
+    }
+    .trust-icon { font-size: 16px; }
+
+    @media (max-width: 600px) {
+        .navbar { padding: 14px 20px; }
+        .card-header { padding: 30px 24px 24px; }
+        .card-header h1 { font-size: 28px; }
+        .card-body { padding: 28px 24px; }
+        .form-grid { grid-template-columns: 1fr; }
+        .form-grid .full { grid-column: 1; }
+        .trust { padding: 18px 24px 28px; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="index.html" class="logo">Zayna Creation</a>
+    <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Back to shop
+    </a>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+    <div class="card">
+
+        <!-- HEADER -->
+        <div class="card-header">
+            <p class="header-tag">Zayna Creation ✦ Order Form</p>
+            <h1>Place Your Order</h1>
+            <p>Fill in your details below and we'll get in touch with you shortly to confirm your order.</p>
+
+            <!-- shown if not logged in -->
+            <div class="login-notice" id="loginNotice">
+                ⚠️ You must <a href="login.html">sign in</a> or <a href="login.html">create an account</a> to place an order.
+            </div>
+
+            <div class="product-badge" id="productBadge">
+                <div class="product-dot"></div>
+                Ordering: <strong id="badgeProductName"></strong>
+            </div>
+        </div>
+
+        <!-- FORM BODY -->
+        <div class="card-body">
+            <form id="orderForm">
+                <input type="hidden" name="product_name" id="hiddenProduct">
+
+                <div class="form-grid">
+
+                    <!-- Full Name -->
+                    <div class="field full">
+                        <label>Full Name <span class="req">*</span></label>
+                        <input type="text" name="client_name" placeholder="Your full name" required autocomplete="name">
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="field">
+                        <label>Phone Number <span class="req">*</span></label>
+                        <input type="tel" name="phone" placeholder="+216 XX XXX XXX" required autocomplete="tel">
+                    </div>
+
+                    <!-- Governorate -->
+                    <div class="field">
+                        <label>Governorate <span class="req">*</span></label>
+                        <select name="governorate" required>
+                            <option value="">Select your region</option>
+                            <option>Tunis</option>
+                            <option>Ariana</option>
+                            <option>Ben Arous</option>
+                            <option>Manouba</option>
+                            <option>Nabeul</option>
+                            <option>Zaghouan</option>
+                            <option>Bizerte</option>
+                            <option>Béja</option>
+                            <option>Jendouba</option>
+                            <option>Le Kef</option>
+                            <option>Siliana</option>
+                            <option>Sousse</option>
+                            <option>Monastir</option>
+                            <option>Mahdia</option>
+                            <option>Sfax</option>
+                            <option>Kairouan</option>
+                            <option>Kasserine</option>
+                            <option>Sidi Bouzid</option>
+                            <option>Gabès</option>
+                            <option>Médenine</option>
+                            <option>Tataouine</option>
+                            <option>Gafsa</option>
+                            <option>Tozeur</option>
+                            <option>Kébili</option>
+                        </select>
+                    </div>
+
+                    <!-- Full Address -->
+                    <div class="field full">
+                        <label>Full Address <span class="req">*</span></label>
+                        <textarea name="address" placeholder="Street, building, neighborhood..." rows="2" required></textarea>
+                    </div>
+
+                    <!-- Product -->
+                    <div class="field full" id="productField">
+                        <label>Product <span class="req">*</span></label>
+                        <select name="product_name_manual" id="productSelect">
+                            <option value="">Select a product</option>
+                            <option>Golden Bloom Pouch</option>
+                            <option>Heart</option>
+                            <option>Pinky</option>
+                            <option>Lavina</option>
+                            <option>Cloudy</option>
+                            <option>Flora</option>
+                            <option>Laptop Pouch</option>
+                        </select>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="field full" id="sizeSection">
+                        <label>Size</label>
+                        <div class="size-pills">
+                            <div class="size-pill">
+                                <input type="radio" name="size" id="sizeS" value="S">
+                                <label for="sizeS">S<span class="price">10 DT</span></label>
+                            </div>
+                            <div class="size-pill">
+                                <input type="radio" name="size" id="sizeM" value="M">
+                                <label for="sizeM">M<span class="price">12 DT</span></label>
+                            </div>
+                            <div class="size-pill">
+                                <input type="radio" name="size" id="sizeL" value="L">
+                                <label for="sizeL">L<span class="price">15 DT</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Packs -->
+                    <div class="field full" id="packSection">
+                        <div class="divider">or choose a pack</div>
+                        <div class="pack-options">
+                            <div class="pack-option">
+                                <input type="radio" name="size" id="packSM" value="Pack S+M">
+                                <label for="packSM">
+                                    Pack S + M
+                                    <span class="pack-price">20 DT</span>
+                                </label>
+                            </div>
+                            <div class="pack-option">
+                                <input type="radio" name="size" id="packSML" value="Pack S+M+L">
+                                <label for="packSML">
+                                    Pack S + M + L
+                                    <span class="pack-price">30 DT</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="field">
+                        <label>Quantity</label>
+                        <input type="number" name="quantity" min="1" value="1" placeholder="1">
+                    </div>
+
+                    <!-- Note -->
+                    <div class="field">
+                        <label>Additional Note</label>
+                        <textarea name="note" placeholder="Any special request..." rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="submit-area">
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span id="btnText">Place My Order 💕</span>
+                    </button>
+                    <div id="statusMsg"></div>
+                </div>
+            </form>
+        </div>
+
+        <!-- TRUST -->
+        <div class="trust">
+            <div class="trust-item"><span class="trust-icon">🤝</span> We contact you within 24h</div>
+            <div class="trust-item"><span class="trust-icon">🚚</span> Delivery across Tunisia</div>
+            <div class="trust-item"><span class="trust-icon">🌸</span> Handmade with love</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ── Check login — show notice if not logged in, block submit ──
+let isLoggedIn = false;
+
+fetch('auth.php?action=check')
+  .then(r => r.json())
+  .then(data => {
+    isLoggedIn = data.logged_in;
+    if (!isLoggedIn) {
+      document.getElementById('loginNotice').style.display = 'flex';
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('btnText').textContent = 'Sign in to order 🔒';
+    }
+  });
+
+// ── Read URL param to pre-fill product ──
+const params       = new URLSearchParams(window.location.search);
+const productParam = params.get('product');
+
+const hiddenProduct = document.getElementById('hiddenProduct');
+const productField  = document.getElementById('productField');
+const productSelect = document.getElementById('productSelect');
+const productBadge  = document.getElementById('productBadge');
+const badgeName     = document.getElementById('badgeProductName');
+const sizeSection   = document.getElementById('sizeSection');
+const packSection   = document.getElementById('packSection');
+
+if (productParam) {
+    hiddenProduct.value = productParam;
+    badgeName.textContent = productParam;
+    productBadge.classList.add('visible');
+    productField.style.display = 'none';
+    if (productParam === 'Laptop Pouch') {
+        sizeSection.style.display = 'none';
+        packSection.style.display = 'none';
+    }
+} else {
+    productField.style.display = 'block';
+    productSelect.addEventListener('change', function() {
+        hiddenProduct.value = this.value;
+        if (this.value === 'Laptop Pouch') {
+            sizeSection.style.display = 'none';
+            packSection.style.display = 'none';
+        } else {
+            sizeSection.style.display = 'block';
+            packSection.style.display = 'block';
+        }
+    });
+}
+
+// ── Form submission ──
+document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    if (!isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const btn    = document.getElementById('submitBtn');
+    const btnTxt = document.getElementById('btnText');
+    const msg    = document.getElementById('statusMsg');
+
+    if (!hiddenProduct.value) {
+        msg.className = 'error';
+        msg.textContent = '❌ Please select a product.';
+        return;
+    }
+
+    btn.disabled = true;
+    btnTxt.textContent = 'Sending your order...';
+    msg.className = '';
+    msg.style.display = 'none';
+
+    const formData = new FormData(this);
+    formData.set('product_name', hiddenProduct.value);
+
+    try {
+        const response = await fetch('submit_order.php', { method: 'POST', body: formData });
+        const result   = await response.json();
+
+        if (result.success) {
+            msg.className = 'success';
+            msg.textContent = '✅ Order received! We\'ll contact you soon to confirm. Thank you 💕';
+            this.reset();
+            hiddenProduct.value = productParam || '';
+            btnTxt.textContent = 'Order Another 💕';
+            btn.disabled = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            if (result.redirect) { window.location.href = result.redirect; return; }
+            msg.className = 'error';
+            msg.textContent = '❌ ' + (result.error || 'Something went wrong. Please try again.');
+            btnTxt.textContent = 'Place My Order 💕';
+            btn.disabled = false;
+        }
+    } catch (err) {
+        msg.className = 'error';
+        msg.textContent = '❌ Cannot reach the server. Make sure XAMPP is running.';
+        btnTxt.textContent = 'Place My Order 💕';
+        btn.disabled = false;
+    }
+});
+</script>
+</body>
+</html>

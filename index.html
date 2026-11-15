@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Zayna Creation</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --rose: #e89ab5;
+        --rose-deep: #bd4158;
+        --rose-light: #fff0f5;
+        --rose-btn: #df8192;
+        --lavender: #b57edc;
+        --text-dark: #333;
+        --text-mid: #666;
+        --text-light: #999;
+        --bg: antiquewhite;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg); font-family: 'DM Sans', sans-serif; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+        position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+        width: 90%; max-width: 1100px;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 15px 40px;
+        background: rgba(255,255,255,0.35); backdrop-filter: blur(18px);
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(232,154,181,0.2);
+        border: 1px solid rgba(255,255,255,0.5);
+        z-index: 1000;
+    }
+    .logo { font-size: 22px; font-weight: 600; color: var(--rose); letter-spacing: 1px; font-family: 'Pacifico', cursive; }
+    .nav-links { list-style: none; display: flex; gap: 35px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #444; font-size: 15px; font-weight: 500; position: relative; transition: 0.3s; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0%; height: 2px; background: #f8a5c2; transition: 0.3s; }
+    .nav-links a:hover { color: #f78fb3; }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+        min-height: 100vh;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 120px 8% 80px;
+        background: linear-gradient(160deg, #fce4ec 0%, #ffd6e7 40%, #ffb3c8 100%);
+        position: relative; overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute; top: -80px; left: -80px;
+        width: 340px; height: 340px; border-radius: 50%;
+        background: rgba(255,255,255,0.25);
+        pointer-events: none;
+    }
+    .hero::after {
+        content: '';
+        position: absolute; bottom: -60px; right: 30%;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: rgba(255,255,255,0.18);
+        pointer-events: none;
+    }
+
+    .hero-text { z-index: 2; max-width: 48%; }
+
+    .hero-badge {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: rgba(255,255,255,0.7);
+        border: 1px solid rgba(255,255,255,0.9);
+        border-radius: 30px;
+        padding: 6px 16px;
+        font-size: 11px; font-weight: 600;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        color: var(--rose-deep);
+        margin-bottom: 22px;
+        backdrop-filter: blur(8px);
+    }
+    .hero-badge-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--rose-deep);
+    }
+
+    .hero h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 58px; font-weight: 700;
+        color: #1a0a10;
+        line-height: 1.1; margin-bottom: 0;
+    }
+    .hero h1 .italic-line {
+        font-style: italic; font-weight: 400;
+        color: var(--rose-deep);
+        display: block;
+    }
+
+    .hero-desc {
+        font-size: 15px; color: #5a3040;
+        line-height: 1.7; margin: 20px 0 30px;
+        max-width: 400px;
+    }
+
+    .hero-btns { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 15px 30px;
+        background: var(--rose-deep); color: white;
+        text-decoration: none; border-radius: 50px;
+        font-weight: 600; font-size: 15px;
+        transition: 0.3s; border: none; cursor: pointer;
+        font-family: 'DM Sans', sans-serif;
+        box-shadow: 0 6px 20px rgba(189,65,88,0.35);
+    }
+    .btn-primary:hover { background: #a03348; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(189,65,88,0.45); }
+    .btn-primary .btn-arrow { font-size: 16px; }
+
+    .btn-secondary {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 14px 26px;
+        background: rgba(255,255,255,0.65); color: #3a1520;
+        text-decoration: none; border-radius: 50px;
+        font-weight: 500; font-size: 15px;
+        border: 1.5px solid rgba(255,255,255,0.9);
+        transition: 0.3s; cursor: pointer;
+        font-family: 'DM Sans', sans-serif;
+        backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.85); transform: translateY(-2px); }
+
+    .hero-social {
+        display: flex; align-items: center; gap: 14px;
+        margin-top: 32px;
+    }
+    .hero-avatars { display: flex; }
+    .hero-avatars span {
+        width: 34px; height: 34px; border-radius: 50%;
+        border: 2px solid white;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 16px; background: #ffd6e7;
+        margin-left: -8px;
+    }
+    .hero-avatars span:first-child { margin-left: 0; }
+    .hero-stars { font-size: 14px; color: #e67e22; letter-spacing: 1px; }
+    .hero-social-text { font-size: 13px; color: #5a3040; }
+    .hero-social-text strong { color: var(--rose-deep); font-weight: 700; }
+
+    .hero-right {
+        position: relative; z-index: 2;
+        width: 46%; display: flex; justify-content: center; align-items: center;
+        flex-shrink: 0;
+    }
+
+    .hero-img-circle {
+        width: 420px; height: 420px; border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(189,65,88,0.2);
+        border: 5px solid rgba(255,255,255,0.6);
+    }
+    .hero-img-circle img {
+        width: 100%; height: 100%; object-fit: cover;
+    }
+
+    .float-badge {
+        position: absolute;
+        background: white;
+        border-radius: 16px;
+        padding: 12px 18px;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+        display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+        backdrop-filter: blur(4px);
+        animation: floatY 3s ease-in-out infinite;
+    }
+    .float-badge.badge-top {
+        top: 30px; left: -30px;
+        animation-delay: 0s;
+    }
+    .float-badge.badge-bot {
+        bottom: 50px; right: -20px;
+        animation-delay: 1.5s;
+        align-items: flex-start;
+    }
+    @keyframes floatY {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-8px); }
+    }
+    .float-badge .badge-icon { font-size: 22px; }
+    .float-badge .badge-title { font-size: 13px; font-weight: 700; color: #1a0a10; }
+    .float-badge .badge-sub  { font-size: 11px; color: #888; }
+
+    .btn {
+        display: inline-block; padding: 14px 32px;
+        background: var(--rose-btn); color: white;
+        text-decoration: none; border-radius: 30px;
+        font-weight: 600; font-size: 15px;
+        transition: 0.3s; border: none; cursor: pointer;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .btn:hover { background: var(--rose-deep); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(189,65,88,0.25); }
+
+    @media (max-width: 860px) {
+        .hero { flex-direction: column; text-align: center; padding: 130px 6% 60px; gap: 40px; }
+        .hero-text { max-width: 100%; }
+        .hero-desc { max-width: 100%; }
+        .hero-btns { justify-content: center; }
+        .hero-social { justify-content: center; }
+        .hero-right { width: 80%; }
+        .hero-img-circle { width: 300px; height: 300px; }
+        .float-badge.badge-top { left: 0; }
+        .float-badge.badge-bot { right: 0; }
+        .hero h1 { font-size: 42px; }
+    }
+
+    /* ── PRODUCTS ── */
+    .products { text-align: center; padding: 100px 40px 80px; }
+    .products h2 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: var(--text-dark); margin-bottom: 8px; }
+    .subtitle { color: var(--text-mid); margin-bottom: 50px; font-size: 16px; }
+
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+
+    .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(232,154,181,0.15); transition: transform 0.3s, box-shadow 0.3s; position: relative; }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(232,154,181,0.3); }
+
+    .card-img-wrap { position: relative; overflow: hidden; height: 280px; cursor: pointer; }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .card:hover .card-img-wrap img { transform: scale(1.06); }
+
+    .card-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(232,154,181,0.6) 0%, transparent 50%);
+        opacity: 0; transition: 0.3s;
+        display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px;
+    }
+    .card:hover .card-overlay { opacity: 1; }
+    .card-overlay span {
+        color: white; font-size: 13px; font-weight: 500;
+        letter-spacing: 1px; text-transform: uppercase;
+        background: rgba(255,255,255,0.25); padding: 6px 16px;
+        border-radius: 20px; backdrop-filter: blur(6px);
+    }
+
+    .card-body { padding: 16px 18px 20px; text-align: left; }
+    .card-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text-dark); margin-bottom: 6px; }
+    .card-price { font-size: 13px; color: var(--rose); font-weight: 500; margin-bottom: 12px; }
+
+    .card-order-btn {
+        display: block; width: 100%;
+        padding: 10px 16px;
+        background: var(--rose-light);
+        color: var(--rose-deep);
+        border: 1.5px solid var(--rose);
+        border-radius: 20px;
+        font-size: 13px; font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s;
+        text-align: center; text-decoration: none;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .card-order-btn:hover { background: var(--rose-btn); color: white; border-color: var(--rose-btn); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+        z-index: 9999; display: flex; align-items: center; justify-content: center;
+        opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+        background: white; border-radius: 28px; max-width: 680px; width: 90%;
+        display: flex; overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+        transform: scale(0.9) translateY(20px);
+        transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+        max-height: 85vh;
+    }
+    .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+    .modal-img { width: 45%; object-fit: cover; flex-shrink: 0; }
+    .modal-body { padding: 36px 32px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+    .modal-tag { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--rose); font-weight: 600; }
+    .modal-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--text-dark); line-height: 1.2; }
+    .modal-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+    .modal-prices { background: var(--rose-light); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+    .modal-prices p { font-size: 14px; color: var(--text-dark); font-weight: 500; }
+    .modal-prices p span { color: var(--rose); font-weight: 700; }
+    .modal-prices .pack { color: var(--lavender); font-size: 13px; }
+    .modal-cta {
+        display: block; padding: 13px 24px;
+        background: var(--rose-btn); color: white;
+        text-decoration: none; border-radius: 25px;
+        font-size: 14px; font-weight: 600;
+        transition: 0.3s; text-align: center; margin-top: 4px;
+    }
+    .modal-cta:hover { background: var(--rose-deep); transform: translateY(-2px); }
+    .modal-close {
+        position: absolute; top: 18px; right: 18px;
+        background: white; border: none; width: 36px; height: 36px;
+        border-radius: 50%; font-size: 20px; cursor: pointer;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        display: flex; align-items: center; justify-content: center;
+        color: #666; transition: 0.2s; z-index: 1;
+    }
+    .modal-close:hover { background: #f5f5f5; color: #333; }
+
+    /* ── ABOUT ── */
+    .about { background: antiquewhite; padding: 80px 20px; display: flex; justify-content: center; align-items: center; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .about-container { max-width: 800px; text-align: center; }
+    .about-container h2 { font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--rose); margin-bottom: 20px; }
+    .about-container p { font-style: italic; font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 15px; }
+    .signature { margin-top: 20px; font-weight: bold; color: var(--lavender); font-size: 18px; }
+
+    /* ── CONTACT ── */
+    .contact { background: antiquewhite; padding: 80px 20px; display: flex; justify-content: center; align-items: center; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .contact-container { max-width: 700px; width: 100%; text-align: center; }
+    .contact-container h2 { font-size: 36px; color: var(--rose); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; }
+    .contact-container > p { color: #666; margin-bottom: 24px; font-size: 16px; }
+    .contact-info { margin-top: 24px; font-size: 14px; color: #555; }
+    .contact-info p { margin-bottom: 6px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+        .modal { flex-direction: column; }
+        .modal-img { width: 100%; height: 220px; }
+        .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        .navbar { padding: 12px 20px; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- vérif session au chargement -->
+<script>
+fetch('auth.php?action=check')
+  .then(r => r.json())
+  .then(data => {
+    const authEl = document.getElementById('nav-auth');
+    if (!authEl) return;
+    if (data.logged_in) {
+      authEl.innerHTML = `
+        <span style="color:var(--rose);font-weight:600;">👋 ${data.name}</span>
+        &nbsp;&nbsp;
+        <a href="#" onclick="logout()" style="color:#999;font-size:13px;">(Sign Out)</a>
+      `;
+    }
+  });
+function logout() {
+  fetch('auth.php?action=logout', { method: 'POST' })
+    .then(() => window.location.reload());
+}
+</script>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">Zayna Creation</div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#Accueil">Home</a></li>
+            <li><a href="#pro">Products</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li id="nav-auth"><a href="login.html">Sign In</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section id="Accueil" class="hero">
+    <div class="hero-text">
+        <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            Handmade in Tunisia
+        </div>
+        <h1>
+            Crafted with
+            <span class="italic-line">love &amp; care</span>
+            for you
+        </h1>
+        <p class="hero-desc">
+            Unique makeup bags &amp; accessories — each piece made by hand,
+            with soft fabrics and floral patterns you'll adore.
+        </p>
+        <div class="hero-btns">
+            <a href="order.html" class="btn-primary">
+                Shop Now <span class="btn-arrow">✦</span>
+            </a>
+            <a href="#pro" class="btn-secondary">
+                View Products ↓
+            </a>
+        </div>
+        <div class="hero-social">
+            <div class="hero-avatars">
+                <span>🌸</span>
+                <span>🤍</span>
+                <span>✨</span>
+            </div>
+            <div>
+                <div class="hero-stars">★★★★★</div>
+                <div class="hero-social-text">loved by over <strong>+100 customers</strong> in tunisia</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-right">
+        <div class="float-badge badge-top">
+            <span class="badge-icon">🎀</span>
+            <span class="badge-title">100% Handmade</span>
+        </div>
+        <div class="hero-img-circle">
+            <img src="images/golden-bloom.png" alt="Zayna Creation pouches">
+        </div>
+        <div class="float-badge badge-bot">
+            <span class="badge-icon">📦</span>
+            <span class="badge-title">Fast Delivery</span>
+            <span class="badge-sub">all across tunisia</span>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="pro" class="products">
+    <h2>Our Products 💕</h2>
+    <p class="subtitle">Discover our handmade creations — click the image to see details</p>
+
+    <div class="product-grid">
+
+        <!-- GOLDEN BLOOM POUCH -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Golden Bloom Pouch','images/golden-bloom.png','A delicate floral pouch with golden accents, perfect for your daily essentials. Quilted fabric for a soft and luxurious feel.','standard')">
+                <img src="images/golden-bloom.png" alt="Golden Bloom Pouch">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Golden Bloom Pouch</h3>
+                <p class="card-price">From 10 DT</p>
+                <a href="order.html?product=Golden+Bloom+Pouch" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+        <!-- HEART -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Heart','images/heart.png','Cute heart-patterned pouch full of charm. Ideal as a gift or a personal accessory for everyday use.','standard')">
+                <img src="images/heart.png" alt="Heart">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Heart</h3>
+                <p class="card-price">From 10 DT</p>
+                <a href="order.html?product=Heart" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+        <!-- PINKY -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Pinky','images/pinky.png','Soft pink tones for a feminine and elegant look. This pouch is made with fine quilted fabric and a smooth zipper.','standard')">
+                <img src="images/pinky.png" alt="Pinky">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Pinky</h3>
+                <p class="card-price">From 10 DT</p>
+                <a href="order.html?product=Pinky" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+        <!-- LAVINA -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Lavina','images/lavina.png','Inspired by lavender fields, this pouch brings a dreamy pastel aesthetic to your vanity or bag.','standard')">
+                <img src="images/lavina.png" alt="Lavina">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Lavina</h3>
+                <p class="card-price">From 10 DT</p>
+                <a href="order.html?product=Lavina" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+        <!-- CLOUDY -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Cloudy','images/cloudy.png','Light as a cloud, this pouch features soft textures and airy colors for a minimalist yet cute style.','standard')">
+                <img src="images/cloudy.png" alt="Cloudy">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Cloudy</h3>
+                <p class="card-price">From 10 DT</p>
+                <a href="order.html?product=Cloudy" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+        <!-- FLORA -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Flora','images/flora.png','A garden of florals stitched with care. Flora brings nature\'s beauty to your everyday carry.','standard')">
+                <img src="images/flora.png" alt="Flora">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Flora</h3>
+                <p class="card-price">From 10 DT</p>
+                <a href="order.html?product=Flora" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+        <!-- LAPTOP POUCH -->
+        <div class="card">
+            <div class="card-img-wrap" onclick="openModal('Laptop Pouch','images/laptop.png','A stylish and protective laptop pouch, handcrafted to keep your device safe while looking gorgeous.','laptop')">
+                <img src="images/laptop.png" alt="Laptop Pouch">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-body">
+                <h3>Laptop Pouch</h3>
+                <p class="card-price">20 DT</p>
+                <a href="order.html?product=Laptop+Pouch" class="card-order-btn">Order Now 💕</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+    <div class="about-container">
+        <h2>About Us</h2>
+        <p>At <strong>Zayna Creation</strong>, we believe that beauty is in the details. Our brand specializes in designing unique and stylish handmade pouches that combine elegance, creativity, and practicality.</p>
+        <p>Each piece is carefully crafted with love, featuring aesthetic designs such as floral patterns, soft colors, and trendy styles to match every personality.</p>
+        <p>Our mission is to bring a touch of elegance to everyday life while offering high-quality and affordable handmade creations.</p>
+        <p class="signature">At Zayna Creation, every pouch tells a story 🌸✨</p>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p>Ready to order or have a question? We'd love to hear from you 💌</p>
+        <a href="order.html" class="btn">Send a Message / Order</a>
+        <div class="contact-info">
+            <p>📍 Tunisia</p>
+            <p>📱 Instagram: @zayna.creation</p>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal" id="modal">
+        <img id="modalImg" class="modal-img" src="" alt="">
+        <div class="modal-body">
+            <span class="modal-tag">Zayna Creation 🌸</span>
+            <h2 id="modalTitle"></h2>
+            <p class="modal-desc" id="modalDesc"></p>
+            <div class="modal-prices" id="modalPrices"></div>
+            <a id="modalOrderBtn" href="order.html" class="modal-cta">Order Now 💕</a>
+        </div>
+    </div>
+</div>
+
+<script>
+const pricesHTML = {
+    standard: `
+        <p>🛍️ Available sizes:</p>
+        <p>· <span>L — 15 DT</span> &nbsp;·&nbsp; <span>M — 12 DT</span> &nbsp;·&nbsp; <span>S — 10 DT</span></p>
+        <p class="pack">📦 Pack S + M → <span>20 DT</span></p>
+        <p class="pack">📦 Pack S + M + L → <span>30 DT</span></p>
+    `,
+    laptop: `
+        <p>💻 Laptop Pouch → <span>20 DT</span></p>
+        <p class="pack">One size, fits laptops up to 13"</p>
+    `
+};
+
+function openModal(name, imgSrc, desc, priceType) {
+    document.getElementById('modalTitle').textContent = name;
+    document.getElementById('modalImg').src = imgSrc;
+    document.getElementById('modalImg').alt = name;
+    document.getElementById('modalDesc').textContent = desc;
+    document.getElementById('modalPrices').innerHTML = pricesHTML[priceType] || pricesHTML.standard;
+    document.getElementById('modalOrderBtn').href = 'order.html?product=' + encodeURIComponent(name);
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

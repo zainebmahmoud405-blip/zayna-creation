@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zayna Creation</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#fdf6f0,#f8c8dc);
+    font-family: 'Segoe UI', sans-serif;
+    overflow:hidden;
+}
+.container{
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    padding:60px;
+    border-radius:30px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+    animation: fadeIn 2s ease-in-out;
+}
+.container h1{
+    font-size:50px;
+    color:#e89ab5;
+    margin-bottom:15px;
+}
+.container p{
+    font-size:18px;
+    color:#555;
+    margin-bottom:35px;
+}
+.btn{
+    background:#f8a5c2;
+    color:white;
+    padding:15px 40px;
+    border-radius:40px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    transition:0.4s;
+}
+.btn:hover{
+    background:#f78fb3;
+    transform:scale(1.1);
+}
+.flowers span{
+    position:absolute;
+    font-size:30px;
+    animation: fall linear infinite;
+    opacity:0.8;
+}
+.flowers span:nth-child(1){ left:10%; animation-duration:8s; }
+.flowers span:nth-child(2){ left:25%; animation-duration:12s; }
+.flowers span:nth-child(3){ left:40%; animation-duration:10s; }
+.flowers span:nth-child(4){ left:60%; animation-duration:9s; }
+.flowers span:nth-child(5){ left:75%; animation-duration:11s; }
+.flowers span:nth-child(6){ left:90%; animation-duration:13s; }
+@keyframes fall{
+    0%{
+        top:-10%;
+        transform:rotate(0deg);
+    }
+    100%{
+        top:110%;
+        transform:rotate(360deg);
+    }
+}
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+<!-- Animated Flowers -->
+<div class="flowers">
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>🌺</span>
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>🌺</span>
+</div>
+<!-- Main Content -->
+<div class="container">
+    <h1>Zayna Creation</h1>
+    <p>Enter the world of handmade elegance & beauty</p>
+    <a href="index.html" class="btn">Discover Zayna</a>
+</div>
+</body>
+</html>
